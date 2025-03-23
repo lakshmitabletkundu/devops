@@ -1,4 +1,4 @@
-Variable "location"{}
-Variable "prefix"{
+variable "location"{}
+variable "prefix"{
    Default= "testtf"
 }
