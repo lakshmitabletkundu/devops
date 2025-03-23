@@ -64,7 +64,7 @@ stages:
         provider: 'azurerm'
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-        commandOptions: '-out $(Build.SourcesDirectory)/tfplan'
+        commandOptions: '-input=false -out $(Build.SourcesDirectory)/tfplan'
         environmentServiceNameAzureRM: 'mysc1'
 
     - task: ArchiveFiles@2
