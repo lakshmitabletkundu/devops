@@ -1,2 +1,2 @@
-location= "West Us"
+location = "West Us"
 prefix = "testtf"
