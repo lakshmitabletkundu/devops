@@ -7,9 +7,29 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - bash: |
+        echo "Print folder path"
+        tree $(Agent.WorkFolder)/1 /f
+
+        echo "System.DefaultWorkingDirectory"
+        echo "$(System.DefaultWorkingDirectory)"
+
+        echo "Build.SourcesDirectory"
+        echo "$(Build.SourcesDirectory)"
+
+        echo "Build.ArtifactStagingDirectory"
+        echo "$(Build.ArtifactStagingDirectory)"
+
+        echo "Build.BinariesDirectory"
+        echo "$(Build.BinariesDirectory)"
+
+        echo "Build.Local.Repository"
+        echo "$(Build.Local.Repository)"
+
     - task: TerraformInstaller@1
       inputs:
         terraformVersion: 'latest'
+
     - task: TerraformTaskV4@4
       displayName: Tf Init
       inputs:
@@ -20,10 +40,43 @@ stages:
         backendAzureRmStorageAccountName: 'storageacclakshmi'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'dev.terraform.state'
+
+    - task: TerraformTaskV4@4
+      displayName: Tf Validate
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'custom'
+        outputTo: 'console'
+        customCommand: 'fmt'
+        environmentServiceNameAzureRM: 'mysc1'
+
     - task: TerraformTaskV4@4
       displayName: Tf Plan
       inputs:
         provider: 'azurerm'
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        commandOptions: '-out $(Build.SourcesDirectory)/tfplan'
         environmentServiceNameAzureRM: 'mysc1'
+
+    - task: ArchiveFiles@2
+      displayName: archive 
+      inputs:
+        rootFolderOrFile: '$(Build.SourcesDirectory)/terraform'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: Publish archived File 
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '$(Build.Buildid)-build'
+        publishLocation: 'Container'
