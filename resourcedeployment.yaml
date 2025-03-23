@@ -1,4 +1,4 @@
-triggere: none
+trigger: none
 
 stages:
 - stage: Build
@@ -7,6 +7,22 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-
-
-            
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: 'latest'
+    - task: TerraformTaskV4@4
+      displayName: Tf Init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'mysc1'
+        backendAzureRmResourceGroupName: 'rg_storage_acc'
+        backendAzureRmStorageAccountName: 'storageacclakshmi'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'dev.terraform.state'
+    - task: TerraformTaskV4@4
+      displayName: Tf Plan
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        environmentServiceNameAzureRM: 'mysc1'
