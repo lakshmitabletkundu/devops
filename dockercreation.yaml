@@ -6,7 +6,7 @@ variables:
   azureSubscription: mysc1
   appName: myFirstWebAppContainer
   containerRegistry: AcrMyFirst
-  dockerRegistryServiceConnection: '4fa4efbc-59af-4c0b-8637-1d5bf7f268fc'
+  dockerRegistryServiceConnection: 'DockerSc'
   imageRepository: 'firstimage'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
@@ -27,7 +27,7 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(azureSubscription)
+        containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
 
