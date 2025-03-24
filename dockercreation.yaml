@@ -5,8 +5,9 @@ variables:
   ## Add this under variables section in the pipeline
   azureSubscription: mysc1
   appName: myFirstWebAppContainer
-  containerRegistry: AcrMyFirst
-  dockerRegistryServiceConnection: 'DockerSc'
+  containerRegistry: acrlakshmimy
+  #dockerRegistryServiceConnection: 'DockerSc'
+  dockerRegistryServiceConnection: 'DockerSc2'
   imageRepository: 'firstimage'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
