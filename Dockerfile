@@ -1,11 +1,13 @@
 FROM mcr.microsoft.com/dotnet/sdk:latest AS build
 WORKDIR /app
+EXPOSE 80
 COPY . ./
 RUN dotnet build ./WebAPIFirst/WebAPIFirst.csproj -c Release -o /app/out
 FROM mcr.microsoft.com/dotnet/aspnet:latest
 WORKDIR /app
 COPY --from=build /app/out .
 ENTRYPOINT ["dotnet", "WebAPIFirst.dll"]
+
 
 
 
