@@ -1,5 +1,5 @@
-trigger:
-- feature_docker
+trigger: none
+#- feature_docker
 
 stages:
 - stage: Build
