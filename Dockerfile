@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 EXPOSE 80
 COPY . ./
-RUN dotnet restore
+RUN dotnet restore ./demoWebApp/demoWebApp.csproj
 #build & publish
 #RUN dotnet publish -c Release -o out
 RUN dotnet build ./demoWebApp/demoWebApp.csproj -c Release -o /app/out
