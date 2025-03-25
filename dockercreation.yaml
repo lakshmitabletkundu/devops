@@ -1,15 +1,14 @@
-trigger: none
-#- feature_docker
+trigger: 
+- feature_docker_new
 
 variables: 
   ## Add this under variables section in the pipeline
   azureSubscription: mysc1
-  appName: myFirstWebAppContainer
+  appName: testapplakshmi
   containerRegistry: acrlakshmimy.azurecr.io
-  #dockerRegistryServiceConnection: 'DockerSc'
   dockerRegistryServiceConnection: 'DockerSc2'
   imageRepository: 'firstimage'
-  dockerfilePath: '$(Build.SourcesDirectory)/WebAppFirst/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
   vmImageName: 'ubuntu-latest'
 
