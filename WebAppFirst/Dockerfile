@@ -9,7 +9,7 @@
 #ENTRYPOINT ["dotnet", "WebAPIFirst.dll"]
 
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 EXPOSE 80
 COPY . ./
@@ -20,7 +20,7 @@ RUN dotnet publish -c Release -o out
 
 #build Runtime image
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/out .
 ENTRYPOINT ["dotnet", "WebAppFirst.dll"]
