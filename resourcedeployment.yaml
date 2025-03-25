@@ -8,25 +8,6 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - bash: |
-        echo "Print folder path"
-        tree $(Agent.WorkFolder)/1 /f
-
-        echo "System.DefaultWorkingDirectory"
-        echo "$(System.DefaultWorkingDirectory)"
-
-        echo "Build.SourcesDirectory"
-        echo "$(Build.SourcesDirectory)"
-
-        echo "Build.ArtifactStagingDirectory"
-        echo "$(Build.ArtifactStagingDirectory)"
-
-        echo "Build.BinariesDirectory"
-        echo "$(Build.BinariesDirectory)"
-
-        echo "Build.Local.Repository"
-        echo "$(Build.Local.Repository)"
-
     - task: TerraformInstaller@1
       inputs:
         terraformVersion: 'latest'
@@ -40,7 +21,7 @@ stages:
         backendAzureRmResourceGroupName: 'rg_storage_acc'
         backendAzureRmStorageAccountName: 'storageacclakshmi'
         backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'dev.terraform.state'
+        backendAzureRmKey: 'dev.test.terraform.state'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
 
     - task: TerraformTaskV4@4
