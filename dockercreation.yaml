@@ -9,7 +9,7 @@ variables:
   #dockerRegistryServiceConnection: 'DockerSc'
   dockerRegistryServiceConnection: 'DockerSc2'
   imageRepository: 'firstimage'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/WebAppFirst/Dockerfile'
   tag: '$(Build.BuildId)'
   vmImageName: 'ubuntu-latest'
 
